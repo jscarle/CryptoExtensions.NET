@@ -30,24 +30,36 @@ namespace System.Security.Cryptography
 
         public static bool CompareToHash(this string password, string hash)
         {
-            byte[] saltedHash = Convert.FromBase64String(hash);
-
-            byte[] salt = new byte[SALT_SIZE];
-            Buffer.BlockCopy(saltedHash, 0, salt, 0, salt.Length);
-
-            byte[] goodHash = new byte[(saltedHash.Length - salt.Length)];
-            Buffer.BlockCopy(saltedHash, salt.Length, goodHash, 0, goodHash.Length);
-
-            byte[] testHash;
-            using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, ITERATIONS, ALGORITHM))
-                testHash = pbkdf2.GetBytes(HASH_SIZE);
-
-            uint diff = (uint)goodHash.Length ^ (uint)testHash.Length;
-            for (int i = 0; i < goodHash.Length && i < testHash.Length; i++)
+            try
             {
-                diff |= (uint)(goodHash[i] ^ testHash[i]);
+                byte[] saltedHash = Convert.FromBase64String(hash);
+
+                byte[] salt = new byte[SALT_SIZE];
+                Buffer.BlockCopy(saltedHash, 0, salt, 0, salt.Length);
+
+                byte[] goodHash = new byte[(saltedHash.Length - salt.Length)];
+                Buffer.BlockCopy(saltedHash, salt.Length, goodHash, 0, goodHash.Length);
+
+                byte[] testHash;
+                using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, ITERATIONS, ALGORITHM))
+                    testHash = pbkdf2.GetBytes(HASH_SIZE);
+
+                uint diff = (uint)goodHash.Length ^ (uint)testHash.Length;
+                for (int i = 0; i < goodHash.Length && i < testHash.Length; i++)
+                {
+                    diff |= (uint)(goodHash[i] ^ testHash[i]);
+                }
+                return diff == 0;
             }
-            return diff == 0;
+            catch (Exception ex)
+            {
+                if (ex is FormatException || ex is ArgumentException)
+                {
+                    return false;
+                }
+
+                throw;
+            }
         }
 
         public static string Encrypt(this string text, string password)
