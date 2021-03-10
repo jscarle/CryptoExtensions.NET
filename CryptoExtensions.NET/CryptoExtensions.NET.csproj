@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.1;net472</TargetFrameworks>
+    <AssemblyName>CryptoExtensionsNET</AssemblyName>
+    <RootNamespace>System.Security.Cryptography</RootNamespace>
+    <PackageId>CryptoExtensions.NET</PackageId>
+    <Product>CryptoExtensions.NET</Product>
+    <Description>Useful Cryptography Extensions</Description>
+    <Copyright>Copyright © Jean-Sebastien Carle 2019</Copyright>
+    <Authors>Jean-Sebastien Carle</Authors>
+    <Company>Jean-Sebastien Carle</Company>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\LICENSE" Pack="true" PackagePath="" />
+  </ItemGroup>
+  
+</Project>
