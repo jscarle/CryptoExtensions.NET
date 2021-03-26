@@ -1,23 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;net472</TargetFrameworks>
-    <AssemblyName>CryptoExtensionsNET</AssemblyName>
-    <RootNamespace>System.Security.Cryptography</RootNamespace>
-    <PackageId>CryptoExtensions.NET</PackageId>
-    <Product>CryptoExtensions.NET</Product>
-    <Description>Useful Cryptography Extensions</Description>
-    <Copyright>Copyright © Jean-Sebastien Carle 2019</Copyright>
-    <Authors>Jean-Sebastien Carle</Authors>
-    <Company>Jean-Sebastien Carle</Company>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFrameworks>netstandard2.1;net472</TargetFrameworks>
+		<AssemblyName>CryptoExtensions.NET</AssemblyName>
+		<RootNamespace>System.Security.Cryptography</RootNamespace>
+		<PackageId>CryptoExtensions.NET</PackageId>
+		<Product>CryptoExtensions.NET</Product>
+		<Description>Useful Cryptography Extensions</Description>
+		<Copyright>Copyright © Jean-Sebastien Carle 2019-2021</Copyright>
+		<Authors>Jean-Sebastien Carle</Authors>
+		<Company>Jean-Sebastien Carle</Company>
+		<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+		<Version>1.0.1</Version>
+		<AssemblyVersion>1.0.1.0</AssemblyVersion>
+		<FileVersion>1.0.1.0</FileVersion>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>Cryptography Encryption Decryption Password Hashing</PackageTags>
+		<RepositoryUrl>https://github.com/jscarle/CryptoExtensions.NET</RepositoryUrl>
+	</PropertyGroup>
 
-  <PropertyGroup>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
-  </PropertyGroup>
+	<ItemGroup>
+		<None Include="..\LICENSE.md" Pack="true" PackagePath="" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Include="..\LICENSE" Pack="true" PackagePath="" />
-  </ItemGroup>
-  
 </Project>
