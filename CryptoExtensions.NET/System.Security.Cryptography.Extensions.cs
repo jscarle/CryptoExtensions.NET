@@ -14,8 +14,8 @@ namespace System.Security.Cryptography
         public static string Hash(this string password)
         {
             byte[] salt = new byte[SALT_SIZE];
-            using (RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider())
-                csprng.GetBytes(salt);
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                rng.GetBytes(salt);
 
             byte[] hash;
             using (Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt, ITERATIONS, ALGORITHM))
@@ -65,8 +65,8 @@ namespace System.Security.Cryptography
         public static string Encrypt(this string text, string password)
         {
             byte[] salt = new byte[SALT_SIZE];
-            using (RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider())
-                csprng.GetBytes(salt);
+            using (RandomNumberGenerator rng = RandomNumberGenerator.Create())
+                rng.GetBytes(salt);
 
             byte[] key;
             byte[] iv;
@@ -77,8 +77,8 @@ namespace System.Security.Cryptography
             }
 
             byte[] encrypted;
-            using (AesManaged aesManaged = new AesManaged())
-            using (ICryptoTransform encryptor = aesManaged.CreateEncryptor(key, iv))
+            using (Aes aes = Aes.Create())
+            using (ICryptoTransform encryptor = aes.CreateEncryptor(key, iv))
             using (MemoryStream memoryStream = new MemoryStream())
             {
                 using (CryptoStream cryptoStream = new CryptoStream(memoryStream, encryptor, CryptoStreamMode.Write))
@@ -114,8 +114,8 @@ namespace System.Security.Cryptography
                     iv = pbkdf2.GetBytes(IV_SIZE);
                 }
 
-                using (AesManaged aesManaged = new AesManaged())
-                using (ICryptoTransform decryptor = aesManaged.CreateDecryptor(key, iv))
+                using (Aes aes = Aes.Create())
+                using (ICryptoTransform decryptor = aes.CreateDecryptor(key, iv))
                 using (MemoryStream memoryStream = new MemoryStream(encrypted))
                 using (CryptoStream cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read))
                 using (StreamReader streamReader = new StreamReader(cryptoStream))
